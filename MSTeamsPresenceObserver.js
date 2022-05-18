@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Web Based Microsoft Teams Presence Observer
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.0.2
 // @description  Osserva lo status dell'utente collegato alla versione web di Teams attiva sul browser
-// @author       instance.id
-// @match        https://*.teams.microsoft.us/*
+// @author       FranCesco
+// @match         *://*.teams.microsoft.us/*
 // @grant        none
 // ==/UserScript==
 
@@ -34,7 +34,7 @@
         // curl --insecure https://192.168.50.231:1880/teams_status -H "Content-Type: application/json" -d '{"status": currentStatus, "set": "on"}'
         $.ajax({
             type: "POST",
-            url: "https://192.168.50.231:1880/teams_status",
+            url: "http://localhost/teams_status",
             data: {
                 status: currentStatus,
                 set: settingData
