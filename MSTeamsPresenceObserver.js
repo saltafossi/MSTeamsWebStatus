@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name         Web Based Microsoft Teams Presence Observer
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      0.1
 // @description  Osserva lo status dell'utente collegato alla versione web di Teams attiva sul browser
 // @author       FranCesco
-// @match         *://*.teams.microsoft.us/*
+// @match         *://*.teams.microsoft.com/*
 // @grant        none
 // ==/UserScript==
 
 (function () {
+    let $ = window.jQuery;
     'use strict';
 
     const INTERVAL = 5000;
@@ -19,7 +20,7 @@
         let status = document.querySelector("span.ts-skype-status");
         if (currentStatus == status.title) { return; }
 
-        console.log('Current Status: ' + status.title)
+        alert('==Current Status: ' + status.title)
 
         if (status != null && (status.title == 'In a call' || status.title == 'Busy' || status.title == 'In a meeting')) {
             currentStatus = status.title;
@@ -31,7 +32,6 @@
             settingData = 'off';
         }
 
-        // curl --insecure https://192.168.50.231:1880/teams_status -H "Content-Type: application/json" -d '{"status": currentStatus, "set": "on"}'
         $.ajax({
             type: "POST",
             url: "http://localhost/teams_status",
